@@ -1,3 +1,8 @@
+
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  root 'ticket#index'
+  match 'accept', to: 'ticket#accept', via: :post
+  get 'ticket/:id', to: 'ticket#show', as: 'ticket_show'
+
 end
