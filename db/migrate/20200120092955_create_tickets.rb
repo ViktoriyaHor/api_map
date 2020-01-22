@@ -4,7 +4,7 @@ class CreateTickets < ActiveRecord::Migration[5.1]
       t.string :request_number
       t.string :sequence_number
       t.string :request_type
-      t.date :response_due_date_time
+      t.datetime :response_due_date_time
       t.string :primary_service_area_code
       t.string :additional_service_area_codes, array: true
       t.text :digsite_info
