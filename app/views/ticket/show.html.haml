@@ -1,0 +1,48 @@
+#map
+  .container
+    .row
+      = @digsite_info
+    .row
+      = link_to "Back", root_path
+
+
+:javascript
+    mapboxgl.accessToken = 'pk.eyJ1IjoidmlrdG9yaXlhaG9yIiwiYSI6ImNrNXBobzhlMTBnMmwzZXFqdmt6dHN5emsifQ.GL64S8RLgc-UZenOvCgIuA';
+    var arr = JSON.parse('#{ @digsite_info }'.replace(/&quot;/g,'"'));
+    console.log(arr);
+    var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [-81.14660562247929, 32.04064386441295],
+    zoom: 10
+    });
+
+    map.on('load', function() {
+    if (map.getLayer('maine')) {
+      map.removeLayer('maine');
+      map.removeSource('maine');
+    }
+    map.addLayer({
+    'id': 'maine',
+    'type': 'fill',
+    'source': {
+    'type': 'geojson',
+    'data': {
+    'type': 'Feature',
+    'geometry': {
+    'type': 'Polygon',
+    'coordinates':
+    arr
+
+    }
+    }
+    },
+    'layout': {},
+    'paint': {
+    'fill-color': '#088',
+    'fill-opacity': 0.8
+    }
+    });
+    });
+
+

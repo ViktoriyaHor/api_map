@@ -1,0 +1,7 @@
+%h1.text-center Tickets
+
+- @tickets.each_slice(3).each do |row|
+  .row
+    - row.each do |ticket|
+      .col-lg-4.col-12.px-1
+        = link_to ticket.request_number, ticket_show_path(ticket)
