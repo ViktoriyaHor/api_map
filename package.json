@@ -1,5 +1,7 @@
 {
   "name": "api_map",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "figaro-js": "^3.0.2"
+  }
 }

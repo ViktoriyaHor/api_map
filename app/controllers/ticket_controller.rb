@@ -7,8 +7,8 @@ class TicketController < ApplicationController
   end
 
   def show
-    @id = @ticket.id
     @digsite_info = [] << to_global_array(between_parentheses(@ticket.digsite_info))
+    @excavator = @ticket.excavators.first
   end
 
   def accept

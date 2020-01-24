@@ -1,15 +1,45 @@
-#map
-  .container
-    .row
-      = @digsite_info
-    .row
+.container-fluid
+  .row
+    .col-4
+      %h1.text-center.m-3 Ticket #{@ticket.id}
+      %table.table
+        %thead
+          %tr
+            %th{scope: "col"} Request number
+            %th{scope: "col"} Sequence number
+            %th{scope: "col"} Request type
+            %th{scope: "col"} Response due date time
+            %th{scope: "col"} Primary service area code
+            %th{scope: "col"} Additional service area codes
+        %tbody
+          %tr
+            %td #{@ticket.request_number}
+            %td #{@ticket.sequence_number}
+            %td #{@ticket.request_type}
+            %td #{@ticket.response_due_date_time.strftime("%d/%m/%Y")}
+            %td #{@ticket.primary_service_area_code}
+            %td #{@ticket.additional_service_area_codes}
+      %h4.text-center.m-3 Excavator
+      %table.table-borderless.mb-4
+        %thead
+          %tr
+            %th{scope: "col"} Company name
+            %th{scope: "col"} Address
+            %th{scope: "col"} Crew onsite
+        %tbody
+          %tr
+            %td #{Rails.env}
+            %td #{@excavator.address}
+            %td #{@excavator.crew_onsite}
       = link_to "Back", root_path
+    .col-6
+      #map
 
 
 :javascript
-    mapboxgl.accessToken = 'pk.eyJ1IjoidmlrdG9yaXlhaG9yIiwiYSI6ImNrNXBobzhlMTBnMmwzZXFqdmt6dHN5emsifQ.GL64S8RLgc-UZenOvCgIuA';
+    mapboxgl.accessToken = "#{ENV['mapbox']}";
     var arr = JSON.parse('#{ @digsite_info }'.replace(/&quot;/g,'"'));
-    console.log(arr);
+    // console.log(arr);
     var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
@@ -23,26 +53,25 @@
       map.removeSource('maine');
     }
     map.addLayer({
-    'id': 'maine',
-    'type': 'fill',
-    'source': {
-    'type': 'geojson',
-    'data': {
-    'type': 'Feature',
-    'geometry': {
-    'type': 'Polygon',
-    'coordinates':
-    arr
-
-    }
-    }
-    },
-    'layout': {},
-    'paint': {
-    'fill-color': '#088',
-    'fill-opacity': 0.8
-    }
-    });
+      'id': 'maine',
+      'type': 'fill',
+      'source': {
+        'type': 'geojson',
+        'data': {
+          'type': 'Feature',
+          'geometry': {
+            'type': 'Polygon',
+            'coordinates':
+              arr
+          }
+        }
+      },
+      'layout': {},
+      'paint': {
+        'fill-color': '#088',
+        'fill-opacity': 0.8
+      }
+      });
     });
 
 
