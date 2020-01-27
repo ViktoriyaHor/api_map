@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Ticket < ApplicationRecord
 
   has_many :excavators, dependent: :destroy
